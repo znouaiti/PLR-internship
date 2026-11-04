@@ -3,6 +3,7 @@ import jax.numpy as jnp
 import jax
 import functools
 import matplotlib.pyplot as plt
+import numpy as np
 #----------------------------------------------------------------------------------------
 # Model definition
 #----------------------------------------------------------------------------------------
@@ -246,4 +247,14 @@ def point_inflexion(x,y):
     d=jnp.diff(jnp.asarray(y),2)
     mask=d[1:]*d[:-1]<0
     return jnp.asarray(x)[2:-1][mask]
+
+def plot_log_hist(x,bins,m,N):
+    xmin=np.min(x)
+    xmax=np.max(x)
+    xlog=np.logspace(np.log10(xmin),np.log10(xmax),bins)
+    plt.hist(x,bins=xlog)
+    plt.title(f"SAD at t={N} with m={m}")
+    plt.xscale('log')
+    plt.yscale('log')
+    plt.show()
 
